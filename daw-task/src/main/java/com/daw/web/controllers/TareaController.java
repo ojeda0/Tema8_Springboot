@@ -119,4 +119,23 @@ public class TareaController {
 		
 	}
 	
+	@PutMapping("/{id}/completar")
+	public ResponseEntity<?> completarTarea(@PathVariable long id) {
+		
+		try {
+			
+			return ResponseEntity.ok(this.tareaService.completarTarea(id));
+			
+		} catch (TareaNotFoundException ex) {
+			
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+			
+		} catch (TareaException ex) {
+			
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+			
+		}
+		
+	}
+	
 }

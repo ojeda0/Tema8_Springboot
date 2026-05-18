@@ -133,4 +133,28 @@ public class TareaService {
 		
 	}
 	
+	//Completar tarea
+	public TareaEntity completarTarea(long id) {
+		
+		TareaEntity tarea = this.findById(id);
+		
+		if(!tarea.getEstado().equals(EstadoTarea.EN_PROGRESO)) {
+			
+			throw new TareaException("ERROR. No se puede completar una tarea que no esté en progreso.");
+			
+		}
+		
+		tarea.setEstado(EstadoTarea.COMPLETADA);
+		
+		return this.tareaRepository.save(tarea);
+		
+	}
+	
+	//Ver las tareas pendientes
+	public List<TareaEntity> tareasPendientes() {
+		
+		List<TareaEntity> tareasPendientes = this.tareaRepository.findByEstadoTarea(EstadoTarea.PENDIENTE);
+		
+	}
+	
 }
