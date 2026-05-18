@@ -67,20 +67,69 @@ public class TareaService {
 		
 	}
 	
-	//Iniciar tarea por id
-	public TareaEntity iniciarTarea(long id) {
+	//Modificar tarea por id
+	public TareaEntity modificarTarea(long id, TareaEntity t) {
 		
-		TareaEntity t = this.findById(id);
-		
-		if(!t.getEstado().equals(EstadoTarea.PENDIENTE)) {
+		if(t.getId() != id) {
 			
-			throw new TareaException("ERROR. No se puede iniciar una tarea que ya ha sido iniciada.");
+			throw new TareaException(String.format("El id del body (%d) y el id del path (%d) no coinciden", t.getId(), id));
 			
 		}
 		
-		t.setEstado(EstadoTarea.EN_PROGRESO);
+		if(t.getEstado() != null) {
+			
+			throw new TareaException("ERROR. No se puede modificar el estado de una tarea.");
+			
+		}
 		
-		return this.tareaRepository.save(t);
+		if(t.getFechaCreacion() != null) {
+			
+			throw new TareaException("ERROR. No se puede modificar la fecha de creación de una tarea.");
+			
+		}
+		
+		if(t.getFechaVencimiento().isBefore(LocalDate.now())) {
+			
+			throw new TareaException("ERROR. La fecha de vencimiento no puede ser anterior a la fecha actual.");
+			
+		}
+		
+		TareaEntity tarea = this.findById(id);
+		tarea.setTitulo(t.getTitulo());
+		tarea.setDescripcion(t.getDescripcion());
+		tarea.setFechaVencimiento(t.getFechaVencimiento());
+		
+		return this.tareaRepository.save(tarea);
+		
+	}
+	
+	//Borrar tarea
+	public void borrarTarea(long id) {
+		
+		if(!this.tareaRepository.existsById(id)) {
+			
+			throw new TareaNotFoundException("ERROR. La tarea no existe.");
+			
+		}
+		
+		this.tareaRepository.deleteById(id);
+		
+	}
+	
+	//Iniciar tarea
+	public TareaEntity iniciarTarea(long id) {
+		
+		TareaEntity tarea = this.findById(id);
+		
+		if(!tarea.getEstado().equals(EstadoTarea.PENDIENTE)) {
+			
+			throw new TareaException("ERROR. No se puede iniciar una tarea que no esté pendiente.");
+			
+		}
+		
+		tarea.setEstado(EstadoTarea.EN_PROGRESO);
+		
+		return this.tareaRepository.save(tarea);
 		
 	}
 	
