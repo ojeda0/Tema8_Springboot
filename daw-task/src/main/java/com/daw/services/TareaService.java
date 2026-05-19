@@ -153,7 +153,42 @@ public class TareaService {
 	//Ver las tareas pendientes
 	public List<TareaEntity> tareasPendientes() {
 		
-		List<TareaEntity> tareasPendientes = this.tareaRepository.findByEstadoTarea(EstadoTarea.PENDIENTE);
+		return this.tareaRepository.findByEstado(EstadoTarea.PENDIENTE);
+		
+	}
+	
+	//Ver las tareas en progreso
+	public List<TareaEntity> tareasEnProgreso() {
+		
+		return this.tareaRepository.findByEstado(EstadoTarea.EN_PROGRESO);
+		
+	}
+	
+	//Ver las tareas completadas
+	public List<TareaEntity> tareasCompletadas() {
+			
+			return this.tareaRepository.findByEstado(EstadoTarea.COMPLETADA);
+			
+	}
+		
+	//Ver las tareas vencidas
+	public List<TareaEntity> tareasVencidas() {
+		
+		return this.tareaRepository.findByFechaVencimientoBefore(LocalDate.now());
+		
+	}
+	
+	//Ver las tareas no vencidas
+	public List<TareaEntity> tareasNoVencidas() {
+			
+			return this.tareaRepository.findByFechaVencimientoGreaterThanEqual(LocalDate.now());
+			
+	}
+	
+	//Obtener tareas por su titulo
+	public List<TareaEntity> tareasPorTitulo(String titulo) {
+		
+		return this.tareaRepository.findByTituloContainingIgnoreCase(titulo);
 		
 	}
 	

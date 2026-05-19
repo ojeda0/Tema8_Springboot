@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.daw.persistence.entities.TareaEntity;
@@ -135,6 +136,48 @@ public class TareaController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
 			
 		}
+		
+	}
+	
+	@GetMapping("/pendientes")
+	public ResponseEntity<?> tareasPendientes() {
+		
+		return ResponseEntity.ok(this.tareaService.tareasPendientes());
+		
+	}
+	
+	@GetMapping("/en_progreso")
+	public ResponseEntity<?> tareasEnProgreso() {
+		
+		return ResponseEntity.ok(this.tareaService.tareasEnProgreso());
+		
+	}
+	
+	@GetMapping("/completadas")
+	public ResponseEntity<?> tareasCompletadas() {
+		
+		return ResponseEntity.ok(this.tareaService.tareasCompletadas());
+		
+	}
+	
+	@GetMapping("/vencidas")
+	public ResponseEntity<?> tareasVencidas() {
+		
+		return ResponseEntity.ok(this.tareaService.tareasVencidas());
+		
+	}
+	
+	@GetMapping("/no_vencidas")
+	public ResponseEntity<?> tareasNoVencidas() {
+		
+		return ResponseEntity.ok(this.tareaService.tareasNoVencidas());
+		
+	}
+	
+	@GetMapping("/titulo")
+	public ResponseEntity<?> tareasPorTitulo(@RequestParam String titulo) {
+		
+		return ResponseEntity.ok(this.tareaService.tareasPorTitulo(titulo));
 		
 	}
 	
