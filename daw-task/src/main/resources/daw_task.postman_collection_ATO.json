@@ -1,0 +1,295 @@
+{
+  "info": {
+    "_postman_id": "641d1474-d4d8-494d-bb25-05ca7c2ff417",
+    "name": "daw_task",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52616734",
+    "_collection_link": "https://go.postman.co/collection/52616734-641d1474-d4d8-494d-bb25-05ca7c2ff417?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "GET /tareas",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/tareas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "tareas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /tareas/{id}",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/tareas/17",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "tareas",
+            "17"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /tareas",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"titulo\": \"Palmillear con Juan\",\r\n    \"descripcion\": \"Palmilleando en la Palmilla de chill\",\r\n    \"fechaVencimiento\": \"2026-05-29\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/tareas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "tareas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT /tareas/{id}",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "    {\r\n        \"id\": 16,\r\n        \"titulo\": \"Configurar entorno\",\r\n        \"descripcion\": \"Instalar Docker y levantar contenedores locales\",\r\n        \"fechaVencimiento\": \"2026-05-19\"\r\n    }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/tareas/16",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "tareas",
+            "16"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE /tareas/{id}",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/tareas/17",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "tareas",
+            "17"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT /tareas/{id}/iniciar",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/tareas/18/iniciar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "tareas",
+            "18",
+            "iniciar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT /tareas/{id}/completar",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/tareas/18/completar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "tareas",
+            "18",
+            "completar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /tareas/pendientes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/tareas/pendientes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "tareas",
+            "pendientes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /tareas/en_progreso",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/tareas/en_progreso",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "tareas",
+            "en_progreso"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /tareas/completadas",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/tareas/completadas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "tareas",
+            "completadas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /tareas/vencidas",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/tareas/vencidas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "tareas",
+            "vencidas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /tareas/no_vencidas",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/tareas/no_vencidas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "tareas",
+            "no_vencidas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /tareas/titulo?titulo=----",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/tareas/titulo?titulo=palmillear",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "tareas",
+            "titulo"
+          ],
+          "query": [
+            {
+              "key": "titulo",
+              "value": "palmillear"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
