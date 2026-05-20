@@ -70,6 +70,8 @@ public class TareaService {
 	//Modificar tarea por id
 	public TareaEntity modificarTarea(long id, TareaEntity t) {
 		
+		TareaEntity tarea = this.findById(id);
+		
 		if(t.getId() != id) {
 			
 			throw new TareaException(String.format("El id del body (%d) y el id del path (%d) no coinciden", t.getId(), id));
@@ -88,13 +90,12 @@ public class TareaService {
 			
 		}
 		
-		if(t.getFechaVencimiento().isBefore(LocalDate.now())) {
+		if(t.getFechaVencimiento().isBefore(tarea.getFechaCreacion())) {
 			
 			throw new TareaException("ERROR. La fecha de vencimiento no puede ser anterior a la fecha actual.");
 			
 		}
 		
-		TareaEntity tarea = this.findById(id);
 		tarea.setTitulo(t.getTitulo());
 		tarea.setDescripcion(t.getDescripcion());
 		tarea.setFechaVencimiento(t.getFechaVencimiento());
