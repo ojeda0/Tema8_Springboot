@@ -7,10 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.daw.persistence.entities.JuegoEntity;
 import com.daw.services.JuegoService;
+import com.daw.services.exceptions.JuegoException;
 import com.daw.services.exceptions.JuegoNotFoundException;
 
 @RestController
@@ -37,6 +40,22 @@ public class JuegoController {
 		} catch(JuegoNotFoundException jnf) {
 			
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(jnf.getMessage());
+			
+		}
+		
+	}
+	
+	@PostMapping
+	public ResponseEntity<?> create(@RequestBody JuegoEntity juegoEntity) {
+		
+		try {
+			
+			return ResponseEntity.status(HttpStatus.CREATED).body(this.juegoService.create(juegoEntity));
+		
+		}
+		catch(JuegoException je) {
+			
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(je.getMessage());
 			
 		}
 		

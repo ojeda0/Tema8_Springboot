@@ -39,6 +39,6 @@ public class JuegoEntity {
 	@Enumerated(EnumType.STRING)
 	private TipoJuego tipo;
 	
-	private boolean completado;
+	private Boolean completado;
 
 }

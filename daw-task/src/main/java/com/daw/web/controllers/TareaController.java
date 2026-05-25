@@ -175,7 +175,7 @@ public class TareaController {
 	}
 	
 	@GetMapping("/titulo")
-	public ResponseEntity<?> tareasPorTitulo(@RequestParam String titulo) {
+	public ResponseEntity<?> tareasPorTitulo(@RequestParam(defaultValue = "") String titulo) {
 		
 		return ResponseEntity.ok(this.tareaService.tareasPorTitulo(titulo));
 		
