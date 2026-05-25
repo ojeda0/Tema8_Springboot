@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workspace - Gestor de Actividades</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-stone-50 text-stone-800 font-sans p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto space-y-8">
+        
+        <header class="bg-teal-800 text-white p-8 rounded-2xl shadow-md flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-tight">Gestor de Tareas - DAW Task</h1>
+                <p class="text-teal-200 mt-2 text-sm">Panel de control unificado para API REST de daw-task - Desarrollado por Abraham Teba Ojeda</p>
+            </div>
+            <div class="space-x-2 flex flex-wrap justify-center gap-2">
+                <button onclick="cargarListadoCompleto()" class="bg-teal-700 hover:bg-teal-600 px-5 py-2 rounded-lg transition font-medium text-sm shadow-sm border border-teal-600">
+                    🔄 Sincronizar Todo
+                </button>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 xl:grid-cols-4 gap-8">
+            
+            <aside class="space-y-6 xl:col-span-1">
+                
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                    <h2 class="text-lg font-bold mb-4 text-teal-700 flex items-center gap-2">
+                        <span>🔍</span> Explorador
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <div class="flex gap-2">
+                            <input type="text" id="cajaBusqueda" placeholder="Buscar por título..." class="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-lg text-sm outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition">
+                            <button onclick="ejecutarBusqueda()" class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg transition font-bold">Ir</button>
+                        </div>
+
+                        <div class="pt-4 border-t border-stone-100">
+                            <span class="block text-xs font-bold text-stone-400 mb-3 uppercase tracking-wider">Filtrar por Estado</span>
+                            <div class="flex flex-col gap-2">
+                                <button onclick="aplicarFiltroAvanzado('pendientes')" class="text-left px-4 py-2 text-sm font-semibold rounded-lg bg-amber-50 text-amber-700 hover:bg-amber-100 transition">⏳ Pendientes</button>
+                                <button onclick="aplicarFiltroAvanzado('en_progreso')" class="text-left px-4 py-2 text-sm font-semibold rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 transition">🚀 En Progreso</button>
+                                <button onclick="aplicarFiltroAvanzado('completadas')" class="text-left px-4 py-2 text-sm font-semibold rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition">✅ Completadas</button>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 border-t border-stone-100">
+                            <span class="block text-xs font-bold text-stone-400 mb-3 uppercase tracking-wider">Estado de Caducidad</span>
+                            <div class="flex gap-2">
+                                <button onclick="aplicarFiltroAvanzado('vencidas')" class="flex-1 px-3 py-2 text-xs font-bold rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 transition">⚠️ Vencidas</button>
+                                <button onclick="aplicarFiltroAvanzado('no_vencidas')" class="flex-1 px-3 py-2 text-xs font-bold rounded-lg bg-stone-100 text-stone-600 hover:bg-stone-200 transition">Al día</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                    <h2 class="text-lg font-bold mb-4 text-teal-700 flex items-center gap-2">
+                        <span>➕</span> Nueva Asignación
+                    </h2>
+                    <form id="formularioCreacion" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-stone-500 mb-1">Designación Principal</label>
+                            <input type="text" id="entradaTitulo" required class="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-lg text-sm outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-stone-500 mb-1">Detalles Adicionales</label>
+                            <textarea id="entradaDescripcion" rows="2" required class="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-lg text-sm outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition resize-none"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-stone-500 mb-1">Fecha Límite</label>
+                            <input type="date" id="entradaVencimiento" required class="w-full p-2.5 bg-stone-50 border border-stone-200 rounded-lg text-sm outline-none focus:ring-2 focus:ring-teal-500 focus:bg-white transition text-stone-600">
+                        </div>
+                        <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-4 rounded-lg transition mt-2 shadow-sm">
+                            Registrar Tarea
+                        </button>
+                    </form>
+                </div>
+
+            </aside>
+
+            <main class="xl:col-span-3 bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden h-fit">
+                <div class="p-6 border-b border-stone-100 flex justify-between items-center bg-white">
+                    <h2 class="text-lg font-bold text-stone-800">Tablero de Actividades</h2>
+                </div>
+                <div class="overflow-x-auto p-2">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="text-xs font-bold text-stone-400 uppercase tracking-wider border-b-2 border-stone-100">
+                                <th class="pb-4 px-4 pt-2">ID</th>
+                                <th class="pb-4 px-4 pt-2 w-1/3">Información</th>
+                                <th class="pb-4 px-4 pt-2">Cronograma</th>
+                                <th class="pb-4 px-4 pt-2">Fase Actual</th>
+                                <th class="pb-4 px-4 pt-2 text-right">Controles</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contenedorRegistros" class="text-sm divide-y divide-stone-50">
+                            </tbody>
+                    </table>
+                </div>
+            </main>
+
+        </div>
+    </div>
+
+    <script>
+        const URL_SERVIDOR = 'http://localhost:8080/tareas';
+
+        // Carga inicial
+        document.addEventListener('DOMContentLoaded', cargarListadoCompleto);
+
+        // --- SISTEMA DE CONSULTAS (GET) ---
+        
+        function cargarListadoCompleto() {
+            solicitarDatosAlServidor(URL_SERVIDOR);
+        }
+
+        function ejecutarBusqueda() {
+            const criterio = document.getElementById('cajaBusqueda').value;
+            if(criterio) solicitarDatosAlServidor(`${URL_SERVIDOR}/titulo?titulo=${criterio}`);
+        }
+
+        function aplicarFiltroAvanzado(endpointFiltro) {
+            solicitarDatosAlServidor(`${URL_SERVIDOR}/${endpointFiltro}`);
+        }
+
+        // --- SISTEMA DE MODIFICACIONES (POST, PUT, DELETE) ---
+
+        // POST /tareas
+        document.getElementById('formularioCreacion').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+
+            // Construimos el JSON respetando estrictamente los nombres de tu Entity
+            const paqueteDatos = {
+                titulo: document.getElementById('entradaTitulo').value,
+                descripcion: document.getElementById('entradaDescripcion').value,
+                fechaVencimiento: document.getElementById('entradaVencimiento').value
+            };
+
+            fetch(URL_SERVIDOR, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(paqueteDatos)
+            })
+            .then(respuesta => {
+                if(respuesta.ok) {
+                    document.getElementById('formularioCreacion').reset();
+                    cargarListadoCompleto();
+                } else {
+                    return respuesta.text().then(textoError => { throw new Error(textoError) });
+                }
+            })
+            .catch(error => alert('Fallo al registrar: ' + error.message));
+        });
+
+        // DELETE /tareas/{id}
+        function purgarActividad(idReferencia) {
+            if(confirm('¿Eliminar esta tarea de forma permanente?')) {
+                fetch(`${URL_SERVIDOR}/${idReferencia}`, { method: 'DELETE' })
+                .then(respuesta => {
+                    if(respuesta.ok) cargarListadoCompleto();
+                    else alert('No se ha podido procesar el borrado');
+                });
+            }
+        }
+
+        // PUT /tareas/{id}/iniciar
+        function transicionIniciar(idReferencia) {
+            fetch(`${URL_SERVIDOR}/${idReferencia}/iniciar`, { method: 'PUT' })
+            .then(respuesta => {
+                if(respuesta.ok) cargarListadoCompleto();
+                else alert('Imposible iniciar. Verifica el estado actual.');
+            });
+        }
+
+        // PUT /tareas/{id}/completar
+        function transicionCompletar(idReferencia) {
+            fetch(`${URL_SERVIDOR}/${idReferencia}/completar`, { method: 'PUT' })
+            .then(respuesta => {
+                if(respuesta.ok) cargarListadoCompleto();
+                else alert('Imposible completar. Verifica el estado actual.');
+            });
+        }
+
+        // --- RENDERIZADO VISUAL ---
+
+        function solicitarDatosAlServidor(rutaAcceso) {
+            fetch(rutaAcceso)
+                .then(respuesta => respuesta.json())
+                .then(matrizResultados => dibujarEstructuraVisual(matrizResultados))
+                .catch(error => console.error('Error de red:', error));
+        }
+
+        function dibujarEstructuraVisual(matrizDatos) {
+            const espacioDibujo = document.getElementById('contenedorRegistros');
+            espacioDibujo.innerHTML = ''; 
+
+            matrizDatos.forEach(item => {
+                // Configuración visual según el estado
+                let etiquetaEstado = '';
+                let botonesLogica = '';
+
+                if(item.estado === 'PENDIENTE') {
+                    etiquetaEstado = `<span class="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-xs font-bold border border-amber-200">Pendiente</span>`;
+                    botonesLogica += `<button onclick="transicionIniciar(${item.id})" class="text-blue-600 hover:text-blue-800 font-bold px-3 py-1 bg-blue-50 hover:bg-blue-100 rounded transition mr-2 text-xs border border-blue-100">▶️ Iniciar</button>`;
+                } else if(item.estado === 'EN_PROGRESO') {
+                    etiquetaEstado = `<span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold border border-blue-200">En Progreso</span>`;
+                    botonesLogica += `<button onclick="transicionCompletar(${item.id})" class="text-emerald-600 hover:text-emerald-800 font-bold px-3 py-1 bg-emerald-50 hover:bg-emerald-100 rounded transition mr-2 text-xs border border-emerald-100">✅ Completar</button>`;
+                } else {
+                    etiquetaEstado = `<span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold border border-emerald-200">Finalizada</span>`;
+                }
+
+                // Agregamos siempre el botón de borrar al final de las acciones
+                botonesLogica += `<button onclick="purgarActividad(${item.id})" class="text-rose-500 hover:text-rose-700 font-bold px-3 py-1 bg-rose-50 hover:bg-rose-100 rounded transition text-xs border border-rose-100">🗑️ Borrar</button>`;
+
+                const bloqueFila = `
+                    <tr class="hover:bg-stone-50 transition group">
+                        <td class="py-4 px-4 font-mono text-stone-400 text-xs">#${item.id}</td>
+                        <td class="py-4 px-4">
+                            <p class="font-bold text-teal-900">${item.titulo}</p>
+                            <p class="text-xs text-stone-500 mt-1 line-clamp-1">${item.descripcion}</p>
+                        </td>
+                        <td class="py-4 px-4">
+                            <div class="flex flex-col text-xs text-stone-600">
+                                <span><strong class="text-stone-400">Creada:</strong> ${item.fechaCreacion}</span>
+                                <span><strong class="text-stone-400">Límite:</strong> ${item.fechaVencimiento}</span>
+                            </div>
+                        </td>
+                        <td class="py-4 px-4">${etiquetaEstado}</td>
+                        <td class="py-4 px-4 text-right flex justify-end items-center h-full mt-2">
+                            ${botonesLogica}
+                        </td>
+                    </tr>
+                `;
+                espacioDibujo.insertAdjacentHTML('beforeend', bloqueFila);
+            });
+        }
+    </script>
+</body>
+</html>

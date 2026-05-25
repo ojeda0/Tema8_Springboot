@@ -1,0 +1,366 @@
+{
+  "info": {
+    "_postman_id": "82c6d3b8-4e7e-427f-88ff-b1a1fa71318f",
+    "name": "daw_games",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52616734",
+    "_collection_link": "https://go.postman.co/collection/52616734-82c6d3b8-4e7e-427f-88ff-b1a1fa71318f?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "GET /juegos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/juegos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "juegos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /juegos/{id}",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/juegos/10",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "juegos",
+            "10"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST /juegos",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"nombre\": \"Stellaris: Infinite Frontiers\",\r\n    \"genero\": \"Estrategia\",\r\n    \"plataformas\": \"PC, Consolas\",\r\n    \"precio\": 34.99,\r\n    \"descargas\": 1200000,\r\n    \"fechaLanzamiento\": \"\",\r\n    \"tipo\": \"BASE\",\r\n    \"completado\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/juegos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "juegos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT /juegos/{id}",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"id\": 16,\r\n    \"nombre\": \"Stellaris: Infinite Frontiers\",\r\n    \"genero\": \"Estrategia\",\r\n    \"plataformas\": \"PC, Consolas\",\r\n    \"precio\": 39.99,\r\n    \"descargas\": 1200000,\r\n    \"fechaLanzamiento\": \"2026-05-25\",\r\n    \"tipo\": \"BASE\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/juegos/16",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "juegos",
+            "16"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE /juegos/{id}",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/juegos/17",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "juegos",
+            "17"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /juegos/genero?genero=----",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/juegos/genero?genero=accion",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "juegos",
+            "genero"
+          ],
+          "query": [
+            {
+              "key": "genero",
+              "value": "accion"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /juegos/nombre?nombre=----",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/juegos/nombre?nombre=lol",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "juegos",
+            "nombre"
+          ],
+          "query": [
+            {
+              "key": "nombre",
+              "value": "lol"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /juegos/plataforma?plataforma=----",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/juegos/plataforma?plataforma=pc",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "juegos",
+            "plataforma"
+          ],
+          "query": [
+            {
+              "key": "plataforma",
+              "value": "pc"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /juegos/expansiones",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/juegos/expansiones",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "juegos",
+            "expansiones"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /juegos/dlc",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/juegos/dlc",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "juegos",
+            "dlc"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /juegos/base",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/juegos/base",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "juegos",
+            "base"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /juegos/precio?min=---&max=---",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/juegos/precio?min=5&max=20",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "juegos",
+            "precio"
+          ],
+          "query": [
+            {
+              "key": "min",
+              "value": "5"
+            },
+            {
+              "key": "max",
+              "value": "20"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /juegos/exitos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/juegos/exitos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "juegos",
+            "exitos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT /juegos/{id}/completar",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/juegos/1/completar",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "juegos",
+            "1",
+            "completar"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT /juegos/descuento?genero=---&porcentaje=---",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/juegos/descuento?genero=accion&porcentaje=50",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "juegos",
+            "descuento"
+          ],
+          "query": [
+            {
+              "key": "genero",
+              "value": "accion"
+            },
+            {
+              "key": "porcentaje",
+              "value": "50"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

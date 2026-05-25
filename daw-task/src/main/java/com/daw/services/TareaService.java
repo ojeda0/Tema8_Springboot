@@ -53,9 +53,9 @@ public class TareaService {
 			
 		}
 		
-		if(t.getFechaVencimiento().isBefore(LocalDate.now())) {
+		if(t.getFechaVencimiento() == null || !t.getFechaVencimiento().isAfter(LocalDate.now())) {
 			
-			throw new TareaException("ERROR. La fecha de vencimiento no puede ser anterior a la fecha actual.");
+			throw new TareaException("ERROR. La fecha límite es obligatoria y debe ser posterior al día de hoy.");
 			
 		}
 		
@@ -90,7 +90,7 @@ public class TareaService {
 			
 		}
 		
-		if(t.getFechaVencimiento().isBefore(tarea.getFechaCreacion())) {
+		if(t.getFechaVencimiento() != null && !t.getFechaVencimiento().isAfter(tarea.getFechaCreacion())) {
 			
 			throw new TareaException("ERROR. La fecha de vencimiento no puede ser anterior a la fecha actual.");
 			
@@ -98,7 +98,12 @@ public class TareaService {
 		
 		tarea.setTitulo(t.getTitulo());
 		tarea.setDescripcion(t.getDescripcion());
-		tarea.setFechaVencimiento(t.getFechaVencimiento());
+		
+		if(t.getFechaVencimiento() != null) {
+			
+			tarea.setFechaVencimiento(t.getFechaVencimiento());
+			
+		}
 		
 		return this.tareaRepository.save(tarea);
 		
